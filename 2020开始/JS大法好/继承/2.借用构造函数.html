@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+    /* 
+        2. 借用构造函数继承
+        在子类构造函数中内部调用父类构造函数,就是让子类创建的实例都有自己的属性副本
+        缺点： 只继承了实例的属性和方法，没有继承原型上的属性和方法
+    */
+    // 父类Super
+    function Super(name) {
+        this.colors = ['red', 'yellow', 'blue'];
+        this.name = name;
+        this.handle = function() {console.log('我是实例的方法之一')}
+    }
+    Super.prototype.add = function () { console.log('原型上的方法') };
+    Super.prototype.prop = '原型上的属性';
+
+    // 子类Sub
+    function Sub() {
+        Super.call(this, '罗纳尔多');   // 就是这句话，继承了Super，还传递了参数
+        // 实例属性
+        this.year = 2020;
+    }
+
+    var sub = new Sub();
+    sub.colors.push('green');
+    console.log(sub.colors, sub.name, sub.year);
+    console.log(sub)
+
+    var sub2 = new Sub();
+    sub2.handle();
+    console.log(sub2.prop)  // undefined，没有继承原型上的属性和方法
+    console.log(sub2.colors);
+
+</script>

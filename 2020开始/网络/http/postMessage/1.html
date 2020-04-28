@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>我是1页面，里面有嵌套页面</div>
+    <iframe src="http://localhost:9000/3.html" frameborder="0" id="f" onload="load()"></iframe>
+</body>
+</html>
+<script>
+    // h5 postMessage + iframe
+    /* let data = {
+        msg: '我是1页面',
+        arr: [1,2,3]
+    };
+    function load() {
+        let frame = document.querySelector('#f');
+        frame.contentWindow.postMessage(data, 'http://localhost:9000');
+
+        window.onmessage = function(e) {
+            console.log('这里是页面1', e.data)
+        }
+    } */
+
+
+    // window.name + iframe
+    // 1和2页面是同域8000端口，1要拿3页面9000端口的数据
+    // 3页面需要把数据挂载到window.name属性上
+    // 1页面需要修改iframe的src变成2页面的同域下，这样就可以拿到3页的数据了
+    // 2页面做了一层中间商
+    let flag = true;
+    function load() {
+        let frame = document.querySelector('#f');
+        if (flag) {
+            // 加载的时候把src换成了同域的2.html
+            frame.src = 'http://localhost:8000/2.html';
+            flag = false;
+        } else {
+            const data = frame.contentWindow.name;
+            console.log(JSON.parse(data))
+        }
+    }
+
+
+    // document.domain + iframe
+
+    // document.domain = 'chd.cn';
+    // function load() {
+
+    //     let frame = document.querySelector('#f');
+    //     console.log(frame.contentWindow);
+    //     console.log(frame.contentWindow.a);
+    //     console.log(frame.contentWindow.b);
+
+    // }
+    
+</script>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script src="./cookie2.js"></script>
+<script>
+Cookie.setCookie('name', 'chd', { maxAge: 20});
+Cookie.setCookie('pass', '123', {httpOnly: true, domain: 'localhost'})
+
+console.log(Cookie.getCookie('name'))
+</script>

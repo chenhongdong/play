@@ -1,0 +1,22 @@
+body {
+    background: #00a1f5;
+}
+.clearfix {
+    zoom: 1;    /* 兼容IE7 */ 
+}
+.clearfix:after {
+    content: '';
+    display: block;
+    height: 0;
+    clear: both;
+}
+.title {
+    color: pink;
+    font-size: 20px;
+}
+.logo {
+    background: url('./assets/cat.jpg') no-repeat;
+    background-size: contain;
+    height: 300px;
+    width: 300px;
+}

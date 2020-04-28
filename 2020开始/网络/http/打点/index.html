@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    // 打点其实就是通过img去发送请求,img的src加载没有跨域问题
+    // 把参数拼到url的后面
+    let report = (function(){
+        let imgs = [];
+        return src => {
+            let img = new Image();
+            imgs.push(img);
+            img.src = src;
+        }
+    })();
+    let src = 'home';
+    let url = 'https://s.360.cn/so_news/click_og.gif';
+    url = url + `?pro=news&pid=hot_news&src=${src}`;
+    report(url);
+</script>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+function fn1() {
+    console.log(this, arguments);
+}
+function fn2() {
+    console.log('2');
+    console.log(this);
+}
+
+Function.prototype.apply = function(context, args) {
+    context = context ? Object(context) : window;
+    context.fn = this;  // {}.fn = fn1
+    if (!args) {
+        return context.fn();
+    }
+
+    let res = eval(`context.fn(${args})`);
+    delete context.fn;
+    return res;
+};
+
+fn1.apply(fn2, [1,35]);
+</script>

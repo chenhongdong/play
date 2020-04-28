@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+// js实现继承的多种方法？
+
+/* 
+    1. 原型链继承
+    原型链~~~~是实现继承的主要方法    
+    利用原型让一个引用类型继承另一个引用类型的方法和属性
+    构造函数、原型、实例三者有什么关系
+        每一个构造函数都有一个原型对象
+        原型对象指向构造函数
+        实例都指向原型
+    继承就是让原型等于另一个的实例
+    例如：
+        B.prototype = new A();
+
+    调用方法或属性的时候会进行3步顺序查找
+    1.看实例有没有  2.看原型有没有  3.看父类原型有没有
+
+    缺点： 1.包含引用类型的值   2.创建实例时，不能给父类的构造函数传值
+*/
+
+// 原型链继承
+// 父类 A
+function A() {
+    this.name = 'A';
+}
+A.prototype.get = function() {
+    return this.name;
+};
+// 子类 B
+function B() {
+    this.year = 2020; 
+}
+// 继承，重写prototype等于新的实例
+B.prototype = new A();
+B.prototype.constructor = B;    // B的原型指向了A，而原型上的constructor属性还指向的是A，所以需要修改一下
+B.prototype.getYear = function() {
+    return this.year;
+};
+B.prototype.get = function() {
+    return '你好，旧时光';
+}
+// 测试
+var b = new B();
+console.log(b.get());
+console.log(b.name);    
+console.log(B.prototype);
+console.log(b instanceof Object);
+console.log(b instanceof A);
+</script>
+
+<script>

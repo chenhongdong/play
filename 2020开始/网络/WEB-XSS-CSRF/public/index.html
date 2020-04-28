@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>首页</title>
+</head>
+<body>
+    <input type="text" id="web"><button id="add">添加图片</button>
+    <div class="box"></div>
+</body>
+</html>
+<script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+    // 不基于后端，DOM-Based，修改属性，插入内容(script标签)，document.write等等
+    // 改变结构后，会造成攻击
+    // $('#add').on('click', function() {
+        // <img src="xxx" onerror="alert(1)" />     攻击的内容 XSS payload
+        // <img src=""><script>alert(123)<\/script>
+
+        // 转义用户输入的内容 encodeURI
+        // $('.box').html(`<img src="${encodeURI($('#web').val())}" />`)
+    // });
+</script>

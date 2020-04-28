@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>节流与防抖</title>
+</head>
+<body>
+    <button id="btn">快速点击</button>
+</body>
+</html>
+<script>
+    let btn = document.getElementById('btn');
+    
+    // 节流 throttle 在一定时间内只执行一次函数
+    function throttle(func, wait) {
+        let prev = 0;
+        return function() {
+            let now = Date.now();
+            if (now - prev > wait) {
+                func.apply(this, arguments);
+                prev = now;
+            }
+        }
+    }
+
+    // 防抖 debounce 执行函数，只在最后一次才触发
+    function debounce(func, wait, immediate) {
+        let timer;
+        return function() {
+            clearTimeout(timer);
+            if (immediate) {    // 立即执行，保证第一次点击的时候得生效
+                let callNow = !timer;
+                if (callNow) func.apply(this, arguments);
+            }
+            timer = setTimeout(() => {
+                func.apply(this, arguments);
+                timer = null;
+            }, wait);
+        }
+    }
+
+    function log() {
+        console.log('logger');
+    }
+
+    btn.addEventListener('click', debounce(log, 3000, true));
+</script>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bfc</title>
+    <style>
+    *{margin: 0; padding: 0;}
+    .clearfix:after {
+        content: '';
+        display: block;
+        clear: both;
+        height: 0;
+    }
+    .box {
+        /* border: 12px solid #0cc; */
+        background-color: #0cc;
+        /* 1.父级高度塌陷 */
+        display: inline-block;
+
+        /* 2.margin-top重叠，子元素设置margin-top父元素也被挤下来 */
+        overflow: hidden;
+        /* display: table; */
+    }
+    .box .inner {
+        float: left;
+        background-color: red;
+        height: 100px;
+        width: 100px;
+        margin-top: 20px;
+    }
+
+    .box .left {
+        float: left;
+        width: 200px;
+        /* height: 600px; */
+        background-color: blue;
+    }
+    .box .right {
+        height: 300px;
+        overflow: hidden;
+        background-color: pink;
+    }
+    .box .left, .box .right {
+        padding-bottom: 1000px;
+        margin-bottom: -1000px;
+        /* display: table-cell; */
+    }
+
+    .wrap {
+        display: inline-block;
+    }
+    .auto {
+        width: 300px;
+        height: 0;
+        padding-top: 50%;
+        background-color: burlywood;
+    }
+    /* 全屏自适应16：9 */
+    .full {
+        width: 100%;
+    }
+    .scale {
+        width: 100%;
+        padding-bottom: 56.25%;
+        height: 0;
+        background-color: cadetblue;
+    }
+    .right .p {
+        margin-bottom: 20px;
+        width: 200px;
+        border: 2px solid #00a1f4;
+        /* 单行省略 */
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    .right .txt {
+        width: 200px;
+        border: 2px solid green;
+        /* 多行省略 */
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <!-- <div class="inner"></div> -->
+
+        <div class="left">左边</div>
+        <div class="right">
+            <div class="p">单行省略text-overflow: ellipsis; overflow: hidden; white-space: nowrap;</div>
+            <div class="txt">
+                多行省略利用的是-webkit-line-clamp和dispay: -webkit-box和overflow: hideen还有-webkit-box-orient: vertical
+            </div>
+        </div>
+    </div>
+
+
+    <div class="wrap">
+        <div class="auto"></div>
+    </div>
+
+
+    <div class="full">
+        <div class="scale">
+          <p>这是一个16：9的矩形</p>
+        </div>
+      </div>
+</body>
+</html>

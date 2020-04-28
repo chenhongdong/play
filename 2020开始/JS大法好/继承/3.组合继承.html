@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+    /* 
+        组合继承，是把原型链和借用构造函数的两种继承方法组合起来
+          使用原型链实现对原型属性和方法的继承
+          借用构造函数实现对实例属性和方法的继承
+    
+        这样，既通过在原型上定义方法实现了函数的复用，又能够保证每个实例都有它自己的属性
+
+
+        缺点： 会调用两次父类的构造函数，一次创建子类原型的时候new父类，一次是子类构造函数中
+    */
+    // 父类Super
+    function Super(name) {
+        this.name = name;
+        this.colors = ['red', 'blue', 'yello'];
+    }
+    Super.prototype.sayName = function() {
+        console.log(this.name);
+    };
+
+    // 子类Sub
+    function Sub(name, age) {
+        Super.call(this, name); // 继承属性
+        this.age = age;
+    }
+    // 继承方法
+    Sub.prototype = new Super();
+    Sub.prototype.constructor = Sub;
+    Sub.prototype.sayAge = function() {
+        console.log(this.age);
+    };
+
+    let sub = new Sub('孙兴民', 26);
+    sub.colors.push('pink');
+    console.log(sub.colors);
+    sub.sayName();
+    sub.sayAge();
+
+    let sub2 = new Sub('武磊', 26);
+    console.log(sub2.colors);
+    sub2.sayName();
+    sub2.sayAge();
+</script>

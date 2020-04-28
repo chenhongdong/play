@@ -1,0 +1,1 @@
+export default '我是解析url的方法';

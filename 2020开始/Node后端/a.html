@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    let str = 'get1_install2_app3_list4_wow5_box6';
+    str = str.replace(/([a-zA-Z]+)(\d)(\w{2})/g, ($0, $1, $2, $3) => {
+        if ($2 % 2 === 0) {
+            $2 = '';
+        }
+        $3 = $3.replace('_', '').toUpperCase();
+        return $1 + $2 + $3;
+    });
+    console.log(str);
+</script>

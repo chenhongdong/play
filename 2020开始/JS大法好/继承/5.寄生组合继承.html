@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+/* 
+    寄生组合继承
+    为了解决组合继承的缺点就是会调用两次父类的构造函数问题
+
+    直接创建父类的原型副本，然后再赋值到子类的原型上(这步算做寄生式继承)
+
+    组合还是在子类构造函数中调用父类构造函数
+*/
+
+function inherit(subs, supers) {
+    let proto = Object.create(supers.prototype); // 父类原型副本
+    proto.constructor = subs;   // constructor指向子类
+    subs.prototype = proto;     // 赋给子类的prototype原型
+}
+// 父类
+function Super(name) {
+    this.name = name;
+    this.colors = ['爱，很简单', '寂寞的季节'];
+}
+Super.prototype.sayName = function() {
+    console.log(this.name);
+};
+
+// 子类
+function Sub(name, age) {
+    Super.call(this, name); // 继承实例的属性，每一个实例都有自己的属性
+    this.age = age;
+}
+
+inherit(Sub, Super);
+
+Sub.prototype.sayAge = function() {
+    console.log(this.age);
+}
+
+let sub = new Sub('陶喆', 18);
+sub.colors.push('就是爱你');
+sub.sayName();
+sub.sayAge();
+console.log(sub.colors);
+
+let super1 = new Super('JJ');
+console.log(super1.colors);
+
+
+</script>

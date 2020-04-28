@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{margin: 0; padding: 0;}
+        ul, ol {
+            list-style: none;
+        }
+        .list {
+            display: flex;
+            padding-bottom: 50px;
+        }
+        .list li {
+            height: 300px;
+        }
+        /* flex-grow定义放大比例，默认是0 */
+        /* flex-shrink定义缩小比例，默认是1 */
+        /* flex-basis定义项目占据的空间 */
+
+        /* flex复合属性是flex-grow+flex-shrink-flex-basis */
+        .list li:nth-of-type(1) {
+            flex-grow: 1;
+            background-color: #00a1f5;
+            flex-shrink: 0;
+        }
+        .list li:nth-of-type(2) {
+            flex-grow: 1;
+            background-color: pink;
+            flex-shrink: 1;
+        }
+        .list li:nth-of-type(3) {
+            flex-grow: 1;
+            background-color: orange;
+            flex-shrink: 1;
+        }
+        .list li:nth-of-type(4) {
+            flex-grow: 1;
+            background-color: purple;
+            flex-shrink: 1;
+        }
+
+        .p {
+            height: 1px;
+            box-shadow: inset 0px -1px 1px -1px #c8c7cc;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <ul class="list">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+        </ul>
+        <div class="p"></div>
+    </div>
+</body>
+</html>

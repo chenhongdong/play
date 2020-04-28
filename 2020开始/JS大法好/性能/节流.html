@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>节流-在一定时间内只执行一次</title>
+    <style>
+        *{margin: 0; padding: 0;}
+        #box {
+            height: 300px;
+            width: 100%;
+            overflow: auto;
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <p>我们都是读书人</p>
+        <p>我们都是读书人</p>
+        <p>我们都是读书人</p>
+        <p>我们都是读书人</p>
+        <p>我们都是读书人</p>
+        <p>我们都是读书人</p>
+        <p>我们都是读书人</p>
+        <p>我们都是读书人</p>
+        <p>我们都是读书人</p>
+        <p>我们都是读书人</p>
+        <p>我们都是读书人</p>
+        <p>我们都是读书人</p>
+        <p>我们都是读书人</p>
+        <p>我们都是读书人</p>
+        <p>我们都是读书人</p>
+        <p>我们都是读书人</p>
+        <p>我们都是读书人</p>
+        <p>我们都是读书人</p>
+        <p>我们都是读书人</p>
+        <p>我们都是读书人</p>
+        <p>我们都是读书人</p>
+        <p>我们都是读书人</p>
+        <p>我们都是读书人</p>
+        <p>我们都是读书人</p>
+        <p>我们都是读书人</p>
+        <p>我们都是读书人</p>
+        <p>我们都是读书人</p>
+        <p>我们都是读书人</p>
+        <p>我们都是读书人</p>
+        <p>我们都是读书人</p>
+        <p>我们都是读书人</p>
+        <p>我们都是读书人</p>
+    </div>
+</body>
+</html>
+<script>
+    function log() {
+        console.log('发送日志');
+    }
+
+    function throttle(fn, wait) {
+        let flag = true,
+            timer;
+
+        return function() {
+            if (flag) {
+                fn.apply(this, arguments);
+                flag = false;
+                return;
+            }
+
+            if (timer) return;
+
+            timer = setTimeout(() => {
+                fn.apply(this, arguments);
+                clearTimeout(timer);
+                timer = null;
+            }, wait);
+        }
+    }
+
+    let box = document.getElementById('box');
+    // 节流
+    // box.addEventListener('scroll', throttle(log, 1000));
+
+    
+
+
+
+    let last_scroll_pos = 0;
+    let flag = false;
+
+    function todo(pos) {
+        console.log(pos);
+    }
+
+    box.addEventListener('scroll', () => {
+        last_scroll_pos = window.screenY;
+        if (!flag) {
+            window.requestAnimationFrame(() => {
+                todo(last_scroll_pos);
+                falg = false;
+            })
+        }
+        flag = true;
+    });
+</script>

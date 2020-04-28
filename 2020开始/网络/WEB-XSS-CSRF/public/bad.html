@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 第三方网站其实是拿不到用户cookie的，只要用户登录过，访问第三方网站，往3456端口提交内容时自动带上了cookie -->
+    <!-- <form id="form" action="http://localhost:3456/api/transfer" method="post">
+        <input type="text" name="target" value="god">
+        <input type="tel" name="money" value="100">
+    </form> -->
+</body>
+</html>
+<script>
+    // document.getElementById('form').submit();
+</script>
+<script>
+    const userAgent = navigator.userAgent;
+    const isIOS = /iphone|ipad/i.test(userAgent);
+    const isAndroid = userAgent.indexOf('Android') > -1 || userAgent.indexOf('Linux') > -1
+
+    function getVersion() {
+        let time = new Date();
+        let year = time.getFullYear();
+        let month = addZero(time.getMonth() + 1);
+        let day = addZero(time.getDate());
+        let hour = addZero(time.getHours());
+        let min = addZero(time.getMinutes());
+
+        return `${year}${month}${day}${hour}${min}`;
+    }
+
+    function addZero(n) {
+        return n < 10 ? '0' + n : '' + n;
+    }
+
+    let $CONFIG = {};
+
+    if (!isIOS && !isAndroid) {
+        let script = document.createElement('script');
+        script.src = `https://js.t.sinajs.cn/t6/home/js/pl/top/topInit.js?version=${getVersion()}`;
+        document.body.appendChild(script);
+
+        script.onload = function() {
+            console.log('脚本完毕', WBtopGlobal);
+            WBtopGlobal && WBtopGlobal.init(
+                {
+                    "name": $CONFIG['小白喵的喵生'],
+                    "onick": $CONFIG['小白喵的喵生'],
+                    "uid": $CONFIG['7281085017'],
+                    "islogin": $CONFIG['7281085017'] ? 1 : 0,
+                    "pid": 1,
+                    "lang": "zh-cn",
+                    "backurl": "//me.weibo.com"
+                })
+        }
+    }
+</script>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    div{
+        width: 100px;
+        height: 100px;
+        background: skyblue;
+        border-radius: 50%;
+        margin: 10px;
+    }
+    </style>
+</head>
+<body>
+    <div class="ball1"></div>
+    <div class="ball2"></div>
+    <div class="ball3"></div>
+</body>
+</html>
+<script>
+    let $ = document.querySelector.bind(document);
+    let ball1 = $('.ball1');
+    console.log(ball1);
+    // 普通写法
+    /* move($('.ball1'), 200, () => {
+        move($('.ball2'), 500, () => {
+            move($('.ball3'), 1000, () => {
+
+            });
+        });
+    });
+
+    
+    function move(ele, target, callback) {
+        let start = ele.getBoundingClientRect().x;
+        function step() {
+            start += 10;
+            ele.style.transform = `translateX(${start}px)`;
+            if (start < target) {
+                requestAnimationFrame(step);
+            } else {
+                callback();
+            }
+        }
+
+        requestAnimationFrame(step);
+    } */
+
+
+    // async 
+
+
+    function move(ele, target) {
+        return new Promise((resolve) => {
+            let start = ele.offsetLeft;
+
+            function step() {
+                start += 10;
+                ele.style.transform = `translateX(${start}px)`;
+
+                if (start < target) {
+                    requestAnimationFrame(step);
+                } else {
+                    resolve();
+                }
+            }
+
+            requestAnimationFrame(step);
+        });
+    }
+
+
+    async function m() {
+        await move($('.ball1'), 200);
+        await move($('.ball2'), 500);
+        await move($('.ball3'), 700);
+    }
+    m();
+</script>

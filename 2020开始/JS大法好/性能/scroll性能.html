@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="box" style="width:100px;height:100px;border:2px dotted #0cc"></div>
+</body>
+</html>
+<script>
+    var start = null;
+    var element = document.getElementById('box');
+    element.style.position = 'absolute';
+
+    function step(timestamp) {
+        if (!start) {
+            start = timestamp;
+        }
+        var progress = timestamp - start;
+        element.style.left = Math.min(progress / 10, 200) + 'px';
+        if (progress < 2000) {
+            window.requestAnimationFrame(step);
+        }
+    }
+
+    window.requestAnimationFrame(step);
+</script>
+
+
+<script>
+    let cookieObj = {
+        list: [],
+        getCookie(key) {
+            const arr = document.cookie.match(new RegExp('(^| )' + key + '=([^;]*)(;|$)'));
+            console.log(arr);
+            if (arr && arr.length) {
+                return decodeURIComponent(arr[2]);
+            } else {
+                return null;
+            }
+        },
+        setCookie(key, value, options = {}) {
+            if (options.httpOnly) {
+                this.list.push(`httpOnly=true`);
+            }
+            if (options.maxAge) {
+                this.list.push(`max-age=${options.maxAge}`)
+            }
+
+            document.cookie = `${key}=${encodeURIComponent(value)}; ${this.list.join('; ')}`
+        }
+    };
+
+
+    cookieObj.setCookie('name', 'chd');
+    cookieObj.setCookie('pass', '12345', {maxAge: 20})
+    let cookie1 = cookieObj.getCookie('pass');
+    console.log(cookie1);
+</script>

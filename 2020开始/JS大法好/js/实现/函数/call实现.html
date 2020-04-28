@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+function fn1() {
+    console.log(this, arguments);
+    console.log(arguments[1])
+}
+
+function fn2() {
+    console.log(2);
+}
+
+// call的特点
+// 1.改变当前函数的this指向 2.还会让当前函数执行
+
+Function.prototype.call = function(context) {
+    context = context ? Object(context) : window;
+    context.fn = this;
+    let args = [];
+    for (let i = 1; i < arguments.length; i++) {
+        args.push(`arguments[${i}]`);   // arguments是个类数组
+    }
+    // 利用数组的toString特性
+    let res = eval(`context.fn(${args})`);  // 函数执行并把参数传入进去
+    delete context.fn;
+    return res;
+}
+
+fn1.call(fn2, 1,3);
+</script>
+
+
+<script>
+
+    Function.prototype.call = function(context, ...args) {
+        context = Object(context) || window;
+        let fn = Symbol();
+        context[fn] = this;
+        let result = context[fn](...args);
+        delete context[fn];
+        return result;
+    }
+</script>

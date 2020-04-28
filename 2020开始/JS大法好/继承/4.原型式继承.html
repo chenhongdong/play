@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+    /* 
+        原型式继承
+        function object(o) {
+            function F(){}
+            F.prototype = o;
+            return new F();
+        }
+    
+    
+        ES5规范了原型式继承，其实就是
+        Object.create()方法
+    */
+    // 从本质上讲，object对传入的对象执行了一次浅复制
+    function object(o) {
+        function F() { }
+        F.prototype = o;
+        return new F();
+    }
+
+    let person = {
+        name: '皮卡丘',
+        friends: ['小火龙', '杰尼龟']
+    };
+
+    let p1 = object(person);
+    p1.name = '小智';
+    p1.friends.push('妙蛙种子');
+
+    let p2 = object(person);
+    p2.name = '小茂';
+    p2.friends.push('风速狗');
+    // 浅复制，所以引用类型还是同一个地址
+    // console.log(person.friends);    // ["小火龙", "杰尼龟", "妙蛙种子", "风速狗"]
+</script>
